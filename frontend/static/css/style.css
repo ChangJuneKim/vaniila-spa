@@ -1,0 +1,53 @@
+header {
+  background: #3e70d9;
+  color: white;
+  font-weight: bold;
+  height: 75px;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+nav {
+  height: 100%;
+}
+
+.nav__link {
+  align-items: center;
+  color: #fff;
+  display: inline-flex;
+  height: 100%;
+  padding: 1rem;
+  text-decoration: none;
+}
+
+.nav__link:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+a {
+  color: #009579;
+}
+
+h1, p {
+  margin: 0;
+}
+
+main {
+  height: 100%;
+  padding: 1rem;
+}
+
+body {
+  background: #EEE;
+  padding-top: 75px;
+}
+
+body, html {
+  height: 200%;
+}
+
+* {
+  box-sizing: border-box;
+}

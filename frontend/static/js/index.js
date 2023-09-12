@@ -1,5 +1,7 @@
 import { navigateTo, router } from "./router.js";
 
+window.addEventListener("popstate", router);
+
 document.addEventListener("DOMContentLoaded", () => {
   document.body.addEventListener("click", (e) => {
     if (e.target.matches("[data-link]")) {

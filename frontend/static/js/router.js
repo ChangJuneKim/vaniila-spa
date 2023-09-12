@@ -1,14 +1,19 @@
+import { home } from "./view/home.js";
+import { posts } from "./view/posts.js";
+import { settings } from "./view/settings.js";
+import { notfound } from "./view/not-found.js";
+
 export const navigateTo = (url) => {
-  history.pushState(null, null, url);
+  history.pushState({}, "", url);
   router();
 };
 
 export const router = async () => {
   const routes = [
-    { path: "/", view: () => console.log("홈") },
-    { path: "/posts", view: () => console.log("게시글") },
-    { path: "/settings", view: () => console.log("설정") },
-    { path: "/not-found", view: () => console.log("404 페이지") },
+    { path: "/", view: home },
+    { path: "/posts", view: posts },
+    { path: "/settings", view: settings },
+    { path: "/not-found", view: notfound },
   ];
 
   const potentialMatches = routes.map((route) => {
@@ -31,5 +36,14 @@ export const router = async () => {
     };
   }
 
-  console.log(match.view());
+  const { getHTML } = match.view();
+  const page = await getHTML();
+
+  const root = document.querySelector("#root");
+  // 기존 내용 제거
+  while (root.firstChild) {
+    root.removeChild(root.firstChild);
+  }
+
+  document.querySelector("#root").appendChild(page);
 };
