@@ -1,19 +1,19 @@
 import { createView } from "./createView.js";
 
 const createHomeContent = () => {
-  const fragment = document.createElement("main");
+  const main = document.createElement("main");
 
   const title = document.createElement("h1");
   title.textContent = "홈";
-  fragment.appendChild(title);
+  main.appendChild(title);
 
   const subTitle = document.createElement("h2");
   subTitle.textContent = "바닐라 JS로 SPA 만들기";
-  fragment.appendChild(subTitle);
+  main.appendChild(subTitle);
 
   const description = document.createElement("p");
   description.textContent = "Lorem ipsum ... Aut harum iste quia";
-  fragment.appendChild(description);
+  main.appendChild(description);
 
   const links = document.createElement("ul");
 
@@ -35,8 +35,8 @@ const createHomeContent = () => {
 
   links.appendChild(settingsLink);
 
-  fragment.appendChild(links);
+  main.appendChild(links);
 
-  return fragment;
+  return main;
 };
 export const home = createView("바닐라 SPA", createHomeContent);
