@@ -1,7 +1,9 @@
+import { getParams, pathToRegex } from "./utils.js";
 import { home } from "./view/home.js";
 import { posts } from "./view/posts.js";
-import { settings } from "./view/settings.js";
 import { notfound } from "./view/not-found.js";
+import { settings } from "./view/settings.js";
+import { postsDetail } from "./view/postsDetail.js";
 
 export const navigateTo = (url) => {
   history.pushState({}, "", url);
@@ -12,33 +14,35 @@ export const router = async () => {
   const routes = [
     { path: "/", view: home },
     { path: "/posts", view: posts },
+    { path: "/posts/:id", view: postsDetail },
     { path: "/settings", view: settings },
     { path: "/not-found", view: notfound },
   ];
 
-  const potentialMatches = routes.map((route) => {
-    // 1)
+  const matchingResults = routes.map((route) => {
     return {
       ...route,
-      isMatch: location.pathname === route.path,
+      // isMatch: location.pathname === route.path,
+      routerResult: location.pathname.match(pathToRegex(route.path)),
     };
   });
 
-  // 2)
-  let match = potentialMatches.find((potentialMatch) => potentialMatch.isMatch);
+  // let match = potentialMatches.find((potentialMatch) => potentialMatch.isMatch);
+  let match = matchingResults.find(
+    (matchingResult) => matchingResult.routerResult !== null
+  );
 
-  // 3)
   if (!match) {
     match = {
       path: routes.at(-1).path,
       view: routes.at(-1).view,
-      isMatch: true,
+      routerResult: [location.pathname],
     };
   }
 
-  const { getHTML } = match.view();
-  const page = await getHTML();
+  const { getHTML } = match.view(getParams(match));
 
+  const page = await getHTML();
   const root = document.querySelector("#root");
   // 기존 내용 제거
   while (root.firstChild) {

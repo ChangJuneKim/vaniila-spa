@@ -3,6 +3,11 @@ const path = require("path");
 
 const app = express();
 
+app.use((req, res, next) => {
+  console.log("Request URL:", req.originalUrl);
+  next();
+});
+
 app.use(
   "/static",
   express.static(path.resolve(__dirname, "frontend", "static"))

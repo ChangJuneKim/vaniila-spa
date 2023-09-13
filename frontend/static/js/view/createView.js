@@ -1,9 +1,15 @@
-export const createView = (title, content) => () => {
-  document.title = title;
+import { layout } from "./layout.js";
 
-  const getHTML = async () => content();
+export const createView =
+  (title, content, useLayout = true) =>
+  (params) => {
+    document.title =
+      Object.keys(params).length > 0 ? `${title} | ${params.id}` : title;
 
-  return {
-    getHTML,
+    const getHTML = async () =>
+      useLayout ? layout(content(params)) : content(params);
+
+    return {
+      getHTML,
+    };
   };
-};
