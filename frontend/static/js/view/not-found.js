@@ -13,10 +13,10 @@ const createNotFoundContent = () => {
   fragment.appendChild(description);
 
   const homeLinkWrapper = document.createElement("p");
-  const homeLink = document.createElement("a");
+  const homeLink = document.createElement("nav-link");
   homeLink.setAttribute("href", "/");
-  homeLink.setAttribute("data-link", "");
   homeLink.textContent = "홈으로";
+  homeLink.setAttribute("color", "#009579");
   homeLinkWrapper.appendChild(homeLink);
 
   fragment.appendChild(homeLinkWrapper);
