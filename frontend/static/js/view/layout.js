@@ -11,8 +11,8 @@ export const layout = (content) => {
     { href: "/settings", text: "설정" },
   ];
 
-  const navComponent = document.createElement("custom-nav");
-  navComponent.paths = paths; // paths 설정
+  const navComponent = document.createElement("navigation-menu");
+  navComponent.paths = paths;
   header.appendChild(navComponent);
 
   fragment.appendChild(header);

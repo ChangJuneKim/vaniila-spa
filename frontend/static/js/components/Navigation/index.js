@@ -8,11 +8,7 @@ class Navigation extends HTMLElement {
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-
-    this.#template.innerHTML = `
-            ${styles}
-            <nav></nav>
-        `;
+    this.#initTemplate();
   }
 
   set paths(val) {
@@ -20,16 +16,20 @@ class Navigation extends HTMLElement {
     this.#render();
   }
 
-  connectedCallback() {
-    this.#render();
+  #initTemplate() {
+    this.#template.innerHTML = `
+            ${styles}
+            <nav></nav>
+        `;
+    this.shadowRoot.appendChild(this.#template.content.cloneNode(true));
   }
 
   #render() {
-    // ShadowRoot 내용을 template의 복제본으로 대체
-    this.shadowRoot.innerHTML = "";
-    this.shadowRoot.appendChild(this.#template.content.cloneNode(true));
-
     const nav = this.shadowRoot.querySelector("nav");
+
+    while (nav.firstChild) {
+      nav.removeChild(nav.firstChild);
+    }
 
     this.#paths.forEach((path) => {
       const navLink = document.createElement("nav-link");
@@ -40,4 +40,4 @@ class Navigation extends HTMLElement {
   }
 }
 
-customElements.define("custom-nav", Navigation);
+customElements.define("navigation-menu", Navigation);

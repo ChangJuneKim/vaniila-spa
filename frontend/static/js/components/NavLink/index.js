@@ -2,17 +2,29 @@ import { navigateTo } from "../../router.js";
 import { styles } from "./style.js";
 
 class NavLink extends HTMLElement {
+  #template = document.createElement("template");
+
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.shadowRoot.innerHTML = styles;
+    this.initTemplate();
+  }
+
+  initTemplate() {
+    this.#template.innerHTML = `
+      ${styles}
+      <a class="nav__link" data-link=""></a>
+    `;
+
+    this.shadowRoot.appendChild(this.#template.content.cloneNode(true));
+
+    this.shadowRoot
+      .querySelector("a")
+      .addEventListener("click", this.#handleClick);
   }
 
   connectedCallback() {
     this.#render();
-    this.shadowRoot
-      .querySelector("a")
-      .addEventListener("click", this.#handleClick);
   }
 
   #handleClick = (e) => {
@@ -24,9 +36,7 @@ class NavLink extends HTMLElement {
   };
 
   #render() {
-    const link = document.createElement("a");
-    link.setAttribute("class", "nav__link");
-    link.setAttribute("data-link", "");
+    const link = this.shadowRoot.querySelector("a");
     link.setAttribute("href", this.getAttribute("href"));
 
     const slotEl = document.createElement("slot");
@@ -36,8 +46,6 @@ class NavLink extends HTMLElement {
     if (this.hasAttribute("color")) {
       link.style.color = this.getAttribute("color");
     }
-
-    this.shadowRoot.appendChild(link);
   }
 }
 
