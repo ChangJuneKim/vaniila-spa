@@ -2,29 +2,31 @@ import { navigateTo } from "../../router.js";
 import { styles } from "./style.js";
 
 class NavLink extends HTMLElement {
-  #template = document.createElement("template");
-
   constructor() {
     super();
     this.attachShadow({ mode: "open" });
-    this.initTemplate();
+    this.shadowRoot.innerHTML = styles;
   }
 
-  initTemplate() {
-    this.#template.innerHTML = `
-      ${styles}
-      <a class="nav__link" data-link=""></a>
-    `;
+  connectedCallback() {
+    this.#render();
+    this.#addEventListeners();
+  }
 
-    this.shadowRoot.appendChild(this.#template.content.cloneNode(true));
+  disconnectedCallback() {
+    this.#removeEventListeners();
+  }
 
+  #addEventListeners() {
     this.shadowRoot
       .querySelector("a")
       .addEventListener("click", this.#handleClick);
   }
 
-  connectedCallback() {
-    this.#render();
+  #removeEventListeners() {
+    this.shadowRoot
+      .querySelector("a")
+      .removeEventListener("click", this.#handleClick);
   }
 
   #handleClick = (e) => {
@@ -36,13 +38,25 @@ class NavLink extends HTMLElement {
   };
 
   #render() {
-    const link = this.shadowRoot.querySelector("a");
-    link.setAttribute("href", this.getAttribute("href"));
+    const link = this.#createLinkElement();
+    this.shadowRoot.appendChild(link);
+  }
+
+  #createLinkElement() {
+    const link = document.createElement("a");
+    link.className = "nav__link";
+    link.dataset.link = "";
+    link.href = this.getAttribute("href");
 
     const slotEl = document.createElement("slot");
     link.appendChild(slotEl);
 
-    // color 속성이 있으면 해당 값으로 색상 설정
+    this.#applyColorAttribute(link);
+
+    return link;
+  }
+
+  #applyColorAttribute(link) {
     if (this.hasAttribute("color")) {
       link.style.color = this.getAttribute("color");
     }
