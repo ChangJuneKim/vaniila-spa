@@ -18,12 +18,13 @@ const createPostsContent = () => {
 
   postLinks.forEach((post) => {
     const listItem = document.createElement("li");
-    const anchor = document.createElement("a");
-    anchor.setAttribute("href", `/posts/${post.id}`);
-    anchor.setAttribute("data-link", "");
-    anchor.textContent = post.text;
 
-    listItem.appendChild(anchor);
+    const navLink = document.createElement("nav-link");
+    navLink.setAttribute("href", `/posts/${post.id}`);
+    navLink.textContent = post.text;
+    navLink.setAttribute("color", "#009579");
+
+    listItem.appendChild(navLink);
     postsList.appendChild(listItem);
   });
 

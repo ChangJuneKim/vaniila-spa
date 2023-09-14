@@ -15,27 +15,25 @@ const createHomeContent = () => {
   description.textContent = "Lorem ipsum ... Aut harum iste quia";
   fragment.appendChild(description);
 
-  const links = document.createElement("ul");
+  const linkList = document.createElement("ul");
+  const links = [
+    { href: "/posts", text: "최근 게시물 보기" },
+    { href: "/settings", text: "설정 페이지" },
+  ];
 
-  const postsLink = document.createElement("li");
-  const postsLinkAnchor = document.createElement("a");
-  postsLinkAnchor.setAttribute("href", "/posts");
-  postsLinkAnchor.setAttribute("data-link", "");
-  postsLinkAnchor.textContent = "최근 게시물 보기";
-  postsLink.appendChild(postsLinkAnchor);
+  links.forEach((link) => {
+    const listItem = document.createElement("li");
 
-  links.appendChild(postsLink);
+    const navLink = document.createElement("nav-link");
+    navLink.setAttribute("href", link.href);
+    navLink.textContent = link.text;
+    navLink.setAttribute("color", "#009579");
 
-  const settingsLink = document.createElement("li");
-  const settingsLinkAnchor = document.createElement("a");
-  settingsLinkAnchor.setAttribute("href", "/settings");
-  settingsLinkAnchor.setAttribute("data-link", "");
-  settingsLinkAnchor.textContent = "설정 페이지";
-  settingsLink.appendChild(settingsLinkAnchor);
+    listItem.appendChild(navLink);
+    linkList.appendChild(listItem);
+  });
 
-  links.appendChild(settingsLink);
-
-  fragment.appendChild(links);
+  fragment.appendChild(linkList);
 
   return fragment;
 };

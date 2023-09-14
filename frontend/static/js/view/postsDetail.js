@@ -13,10 +13,10 @@ const createPostsDetailContent = (params) => {
   fragment.appendChild(description);
 
   const postsLinkWrapper = document.createElement("p");
-  const postsLink = document.createElement("a");
+  const postsLink = document.createElement("nav-link");
   postsLink.setAttribute("href", "/posts");
-  postsLink.setAttribute("data-link", "");
   postsLink.textContent = "포스트";
+  postsLink.setAttribute("color", "#009579");
   postsLinkWrapper.appendChild(postsLink);
 
   fragment.appendChild(postsLinkWrapper);

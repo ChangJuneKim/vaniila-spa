@@ -1,3 +1,8 @@
+
+:root {
+  --main-color: blue;
+}
+
 header {
   background: #3e70d9;
   color: white;
@@ -7,23 +12,6 @@ header {
   position: fixed;
   right: 0;
   top: 0;
-}
-
-nav {
-  height: 100%;
-}
-
-.nav__link {
-  align-items: center;
-  color: #fff;
-  display: inline-flex;
-  height: 100%;
-  padding: 1rem;
-  text-decoration: none;
-}
-
-.nav__link:hover {
-  background: rgba(255, 255, 255, 0.05);
 }
 
 a {

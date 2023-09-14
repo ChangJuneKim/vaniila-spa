@@ -1,8 +1,9 @@
+import "../components/Navigation/index.js";
+
 export const layout = (content) => {
   const fragment = document.createDocumentFragment();
 
   const header = document.createElement("header");
-  const nav = document.createElement("nav");
 
   const paths = [
     { href: "/", text: "홈" },
@@ -10,17 +11,9 @@ export const layout = (content) => {
     { href: "/settings", text: "설정" },
   ];
 
-  paths.forEach((path) => {
-    const navLink = document.createElement("a");
-    navLink.setAttribute("class", "nav__link");
-    navLink.setAttribute("data-link", "nav__link");
-    navLink.setAttribute("href", path.href);
-    navLink.textContent = path.text;
-
-    nav.appendChild(navLink);
-  });
-
-  header.appendChild(nav);
+  const navComponent = document.createElement("navigation-menu");
+  navComponent.paths = paths;
+  header.appendChild(navComponent);
 
   fragment.appendChild(header);
   fragment.appendChild(content);
