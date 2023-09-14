@@ -13,6 +13,9 @@ class Navigation extends HTMLElement {
 
   set paths(val) {
     this.#paths = val;
+  }
+
+  connectedCallback() {
     this.#render();
   }
 
