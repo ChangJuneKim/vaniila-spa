@@ -8,10 +8,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.use(
-//   "/static",
-//   express.static(path.resolve(__dirname, "frontend", "static"))
-// );
 app.use("/static", express.static(path.resolve(__dirname, "frontend", "dist")));
 
 app.get("/*", (req, res) => {
