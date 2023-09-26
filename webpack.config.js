@@ -5,7 +5,7 @@ module.exports = {
   entry: "./frontend/static/js/index.js", // 엔트리 포인트
   output: {
     filename: "bundle.js", // 번들된 파일 이름
-    publicPath: "/dist/",
+    publicPath: "/static/",
     path: path.resolve(__dirname, "frontend", "dist"), // 번들된 파일의 위치
   },
   mode: "development",
